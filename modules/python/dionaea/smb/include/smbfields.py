@@ -1498,6 +1498,14 @@ class SMB_Delete_Response(Packet):
         LEShortField("ByteCount",0),
     ]
 
+class SMB_NT_Trans_Response(Packet):
+    name = "SMB NT Transact Response"
+    smb_cmd = SMB_COM_DELETE
+    fields_desc = [
+        ByteField("WordCount",0),
+        LEShortField("ByteCount",0),
+    ] 
+    
 class DCERPC_Header(Packet):
     name = "DCERPC Header"
     fields_desc = [
