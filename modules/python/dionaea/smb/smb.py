@@ -571,8 +571,11 @@ class smbd(connection):
                     rdata.Bytes = self.outbuf
 
             r /= rdata
-        elif p.getlayer(SMB_Header).Command == SMB_COM_TRANSACTION2:
+        elif Command == SMB_COM_TRANSACTION2:
             r = SMB_Trans2_Response()
+        elif Command == SMB_COM_TRANSACTION2_SECONDARY:
+            if self.state['lastcmd'] == SMB_Commands[SMB_COM_NT_TRANSACT] and p.haslayer(Raw):
+                smblog.info("Large SMB_COM_TRANSACTION2_SECONDARY request follows SMB_COM_NT_TRANSACT request, possible MS17-010 exploit attempt.")
         elif Command == SMB_COM_DELETE:
             # specific for NMAP smb-enum-shares.nse support
             h = p.getlayer(SMB_Delete_Request)
