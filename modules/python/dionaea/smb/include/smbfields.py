@@ -1500,7 +1500,7 @@ class SMB_Delete_Response(Packet):
 
 class SMB_NT_Trans_Response(Packet):
     name = "SMB NT Transact Response"
-    smb_cmd = SMB_COM_DELETE
+    smb_cmd = SMB_COM_NT_TRANSACT #0xA0
     fields_desc = [
         ByteField("WordCount",0),
         LEShortField("ByteCount",0),
