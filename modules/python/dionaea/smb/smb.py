@@ -581,6 +581,8 @@ class smbd(connection):
             h = p.getlayer(SMB_Delete_Request)
             if h.FileName == b'nmap-test-file\0':
                 r = SMB_Delete_Response()
+        elif Command == SMB_COM_NT_TRANSACT:
+            r = SMB_NT_Trans_Response()
         else:
             smblog.error('...unknown SMB Command. bailing out.')
             p.show()
